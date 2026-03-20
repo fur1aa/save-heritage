@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+trafilatura
+pydantic
+google-genai
+jinja2
+python-dotenv
+python-multipart

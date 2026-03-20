@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.title }} | SAVE Heritage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* МАГИЯ ИИ: Динамические цвета */
+        :root {
+            --bg: {{ data.theme.bg }};
+            --bg-darker: {{ data.theme.bg_darker }};
+            --accent-red: {{ data.theme.accent_red }};
+            --accent-gold: {{ data.theme.accent_gold }};
+            --text-cream: {{ data.theme.text_cream }};
+            --card-bg: {{ data.theme.card_bg }};
+            --border: {{ data.theme.border_color }};
+            --section-pad: 80px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text-cream); font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        .chinese { color: var(--accent-gold); font-size: 1.2em; margin-left: 0.3em; }
+
+        /* HEADER & NAVIGATION */
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 1000; }
+        .logo { text-decoration: none; color: var(--text-cream); font-size: 1.5rem; display: flex; align-items: baseline; gap: 6px; transition: opacity 250ms; }
+        .logo:hover { opacity: 0.7; }
+        .logo-save { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.025em; }
+        .logo-heritage { font-family: 'Inter', sans-serif; font-weight: 400; }
+
+        .lang-container { position: relative; }
+        .lang-trigger { background: rgba(255, 255, 255, 0.05); padding: 8px 20px; border: 1px solid var(--border); border-radius: 50px; cursor: pointer; font-size: 0.8rem; color: var(--text-cream); transition: all 0.3s ease; }
+        .lang-trigger:hover { border-color: var(--accent-gold); background: rgba(255, 255, 255, 0.1); }
+        .lang-dropdown { position: absolute; right: 0; top: 120%; background: var(--bg-darker); border: 1px solid var(--border); display: none; flex-direction: column; min-width: 160px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1001; }
+        .lang-container:hover .lang-dropdown { display: flex; }
+        .lang-dropdown a { padding: 12px 20px; color: var(--text-cream); text-decoration: none; font-size: 0.8rem; transition: background 0.3s; }
+        .lang-dropdown a:hover { background: var(--card-bg); color: var(--accent-gold); }
+
+        /* HERO SECTION */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, var(--card-bg) 0%, var(--bg) 100%); padding: 0 20px; }
+        .hero h1 { font-size: 4.5rem; margin-bottom: 0.5rem; color: var(--text-cream); }
+        .hero .subtitle { color: var(--accent-red); font-style: italic; font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero .label { text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.8rem; color: var(--accent-gold); margin-bottom: 1.5rem; }
+        .hero .tagline { max-width: 600px; margin-bottom: 2.5rem; font-weight: 300; }
+        
+        /* BUTTONS */
+        .btn-group { display: flex; gap: 20px; }
+        .btn { padding: 14px 28px; border-radius: 4px; text-transform: uppercase; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+        .btn-outline { border: 1px solid var(--text-cream); color: var(--text-cream); background: transparent; }
+        .btn-outline:hover { background: var(--text-cream); color: var(--bg-darker); }
+        .btn-filled { background: var(--accent-red); color: white; border: 1px solid var(--accent-red); }
+        .btn-filled:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        /* SECTIONS & CARDS */
+        section { padding: var(--section-pad) 10%; }
+        .section-title { font-size: 2.5rem; margin-bottom: 50px; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; left: 0; bottom: -10px; width: 60px; height: 3px; background: var(--accent-gold); }
+        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .card { background: var(--card-bg); padding: 40px; border: 1px solid var(--border); transition: all 0.4s ease; }
+        .card:hover { box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); border-color: var(--accent-red); transform: translateY(-5px); }
+        .card h3 { color: var(--accent-gold); margin-bottom: 15px; font-size: 1.4rem; }
+
+        /* BOTTOM SECTION */
+        .bottom-split { display: flex; gap: 60px; background: var(--bg-darker); }
+        .left-col { flex: 0 0 45%; } .right-col { flex: 0 0 55%; }
+        #model-viewer-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; min-height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .model-loading { color: var(--accent-gold); font-style: italic; font-family: 'Playfair Display', serif; }
+        .facts-title { color: var(--accent-gold); margin-bottom: 25px; font-size: 1.8rem; }
+        .styled-list { list-style: none; margin-bottom: 30px; }
+        .styled-list li { position: relative; padding-left: 25px; margin-bottom: 12px; }
+        .styled-list li::before { content: ''; position: absolute; left: 0; top: 6px; width: 8px; height: 8px; background: var(--accent-red); }
+        .divider { height: 1px; background: var(--accent-red); opacity: 0.3; margin: 30px 0; }
+        .did-you-know h4 { color: var(--accent-gold); font-style: italic; margin-bottom: 15px; }
+
+        /* FOOTER */
+        footer { background: var(--bg-darker); border-top: 1px solid var(--border); margin-top: 80px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 40px 40px; }
+        .footer-copyright { font-size: 0.9rem; color: var(--text-cream); opacity: 0.5; }
+        
+        @media (max-width: 1024px) { .bottom-split { flex-direction: column; } .grid-container { grid-template-columns: 1fr; } .footer-content { flex-direction: column; gap: 20px; text-align: center; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">
+        <span class="logo-save">SAVE</span>
+        <span class="logo-heritage">Heritage</span>
+    </a>
+    <div class="lang-container">
+        <div class="lang-trigger">EN / 廣</div>
+        <div class="lang-dropdown">
+            <a href="#">English</a>
+            <a href="#">Cantonese (廣東話)</a>
+            <a href="#">Mandarin (普通話)</a>
+            <a href="#">Japanese (日本語)</a>
+            <a href="#">French (Français)</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="label">{{ data.label }}</div>
+    <h1>{{ data.title }}</h1>
+    <div class="subtitle">{{ data.subtitle }}</div>
+    <p class="tagline">{{ data.tagline }}</p>
+    <div class="btn-group">
+        <a href="#about" class="btn btn-outline">↓ Explore</a>
+        <a href="#model-viewer" class="btn btn-filled">⬇ Download 3D Asset</a>
+    </div>
+</section>
+
+<section id="about">
+    <h2 class="section-title">About {{ data.title }}</h2>
+    <div class="grid-container">
+        {% for card in data.about_cards %}
+        <div class="card">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.content }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">{{ data.culture_title }} <span class="chinese">{{ data.culture_subtitle }}</span></h2>
+    <div class="grid-container">
+        {% for card in data.culture_cards %}
+        <div class="card">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.content }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="bottom-split" id="model-viewer">
+    <div class="left-col">
+        <div id="model-viewer-box">
+            <p class="model-loading">[ 3D Model Loading... ]</p>
+        </div>
+        <a href="#" class="btn btn-filled" style="display: block; text-align: center;">⬇ Download 3D Asset</a>
+    </div>
+    <div class="right-col">
+        <h2 class="facts-title">Quick Facts</h2>
+        <ul class="styled-list">
+            {% for fact in data.quick_facts %}
+            <li>{{ fact }}</li>
+            {% endfor %}
+        </ul>
+        <div class="divider"></div>
+        <div class="did-you-know">
+            <h4>Did You Know?</h4>
+            <p style="margin-bottom: 25px;">{{ data.did_you_know_text }}</p>
+            <a href="/archive" class="btn btn-outline">→ Explore Archive</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-copyright">
+            © 2026 SAVE Heritage. All rights reserved.
+        </div>
+        <div class="footer-copyright">
+            Smart Archive for Virtual Exploration of the Heritage
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

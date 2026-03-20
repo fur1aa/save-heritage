@@ -1,0 +1,155 @@
+{
+    "sunbeam": {
+        "id": "sunbeam",
+        "title": "Sunbeam Theatre",
+        "label": "North Point, Hong Kong",
+        "tagline": "The iconic spiritual home of Cantonese Opera, digitally reconstructed to preserve its structural and cultural essence.",
+        "image": "https://images.unsplash.com/photo-1578144670233-0498305f2c25?q=80&w=800&auto=format&fit=crop",
+        "is_custom": true
+    },
+    "большой_театр": {
+        "id": "большой_театр",
+        "title": "Большой театр",
+        "label": "Bolshoi Theatre",
+        "tagline": "Дом Большого балета и Большой оперы, одних из старейших и самых известных трупп в мире.",
+        "image": "https://images.unsplash.com/photo-1541888086053-53b47f07bf2e?q=80&w=800&auto=format&fit=crop",
+        "is_custom": false,
+        "full_data": {
+            "label": "Bolshoi Theatre",
+            "title": "Большой театр",
+            "subtitle": "Исторический оперный театр в Москве",
+            "tagline": "Дом Большого балета и Большой оперы, одних из старейших и самых известных трупп в мире.",
+            "about_cards": [
+                {
+                    "title": "Основание и Ранняя История",
+                    "content": "Компания была основана 28 марта 1776 года, когда Екатерина II предоставила князю Петру Урусову лицензию на организацию театральных представлений. Первоначально театр располагался в частном доме, а затем приобрел Петровский театр. После нескольких пожаров нынешнее здание было построено между 1821 и 1824 годами."
+                },
+                {
+                    "title": "Архитектурное Наследие",
+                    "content": "Главное здание театра, спроектированное архитектором Джозефом Бове, является визитной карточкой Москвы и России. Его культовый неоклассический фасад изображен на российской 100-рублевой банкноте, что подчеркивает его национальное значение."
+                },
+                {
+                    "title": "Масштабная Реконструкция",
+                    "content": "С июля 2005 по октябрь 2011 года театр был закрыт на масштабную реставрацию. Работы включали восстановление оригинальной акустики и имперского декора. Официальная стоимость реконструкции составила 21 миллиард рублей, хотя некоторые источники указывают на значительно большие затраты."
+                },
+                {
+                    "title": "Мировое Признание",
+                    "content": "Большой балет и Большая опера входят в число старейших и самых известных балетных и оперных трупп в мире. Это крупнейшая балетная труппа в мире, насчитывающая более 200 танцоров, а также родительская компания для ведущей балетной школы – Академии Большого театра."
+                }
+            ],
+            "culture_title": "Культура Большого Театра",
+            "culture_subtitle": "Наследие художественного совершенства и непреходящих вызовов.",
+            "culture_cards": [
+                {
+                    "title": "Балет и Опера: Репертуар и Гастроли",
+                    "content": "Большой театр – это репертуарный театр, представляющий широкий спектр постановок. После распада Советского Союза труппа активно гастролировала по всему миру, став важным источником культурного престижа и валютных поступлений. Однако театр также сталкивался с дезертирством танцоров."
+                },
+                {
+                    "title": "Значимые Премьеры",
+                    "content": "Большой театр стал местом многих исторических премьер, включая балет Чайковского «Лебединое озеро» (1877), а также оперы Чайковского «Воевода» и «Мазепа», «Борис Годунов» Мусоргского, «Алеко» и «Франческа да Римини» Рахманинова, и «Леди Макбет Мценского уезда» Шостаковича."
+                },
+                {
+                    "title": "Оркестр и Музыкальные Директора",
+                    "content": "Оркестр Большого театра провел свой первый симфонический концерт в 1919 году. За свою историю театр имел множество выдающихся главных дирижеров и музыкальных директоров, включая Самуила Самосуда, Евгения Светланова и Юрия Симонова. В настоящее время художественным руководителем является Валерий Гергиев."
+                },
+                {
+                    "title": "Вызовы и Споры",
+                    "content": "Большой театр сталкивался с рядом споров, включая значительное превышение сметы при реконструкции, обвинения в неправомерных действиях со стороны администрации, нападение с кислотой на балетного директора Сергея Филина, а также обвинения в цензуре и продаже билетов на черном рынке."
+                }
+            ],
+            "quick_facts": [
+                "Адрес: Театральная площадь, 1, Тверской район, Москва, Россия",
+                "Открыт: 1825 год",
+                "Архитектор: Джозеф Бове",
+                "Вместимость: 1 740 мест",
+                "Основан: 28 марта 1776 года",
+                "Крупнейшая балетная труппа в мире (более 200 танцоров)",
+                "Фасад изображен на российской 100-рублевой банкноте",
+                "Новая сцена открыта 29 ноября 2002 года"
+            ],
+            "did_you_know_text": "Знаете ли вы, что Большой театр был основан в 1776 году, его культовый неоклассический фасад изображен на российской 100-рублевой банкноте, и в нем находится крупнейшая в мире балетная труппа, насчитывающая более 200 танцоров?",
+            "theme": {
+                "bg": "#1A1A2E",
+                "bg_darker": "#0F0F1A",
+                "accent_red": "#E94560",
+                "accent_gold": "#FFD700",
+                "text_cream": "#F5F5DC",
+                "card_bg": "#2C2C4A",
+                "border_color": "#6A0505"
+            }
+        }
+    },
+    "the_colosseum:_romes_enduring_legacy": {
+        "id": "the_colosseum:_romes_enduring_legacy",
+        "title": "The Colosseum: Rome's Enduring Legacy",
+        "label": "Colosseum",
+        "tagline": "From gladiatorial contests to a symbol against capital punishment, its history echoes through millennia.",
+        "image": "https://images.unsplash.com/photo-1541888086053-53b47f07bf2e?q=80&w=800&auto=format&fit=crop",
+        "is_custom": false,
+        "full_data": {
+            "label": "Colosseum",
+            "title": "The Colosseum: Rome's Enduring Legacy",
+            "subtitle": "An elliptical amphitheatre, the largest ever built, standing as a testament to Roman engineering and culture.",
+            "tagline": "From gladiatorial contests to a symbol against capital punishment, its history echoes through millennia.",
+            "about_cards": [
+                {
+                    "title": "Architectural Marvel",
+                    "content": "Built of travertine limestone, tuff, and brick-faced Roman concrete, the Colosseum is the largest ancient amphitheatre ever constructed, showcasing advanced Roman engineering."
+                },
+                {
+                    "title": "Construction & Patrons",
+                    "content": "Construction began under Emperor Vespasian in 72 AD and was completed by his successor Titus in 80 AD. Further modifications were made by Domitian, making them known as the Flavian dynasty."
+                },
+                {
+                    "title": "Capacity & Spectacles",
+                    "content": "It could hold an estimated 50,000 to 80,000 spectators, hosting gladiatorial contests, animal hunts, public executions, battle re-enactments, and dramas based on Roman mythology."
+                },
+                {
+                    "title": "Symbol of Rome",
+                    "content": "Despite ruin by earthquakes and stone robbers, the Colosseum remains a renowned symbol of Imperial Rome, listed as one of the New 7 Wonders of the World and a top tourist attraction."
+                }
+            ],
+            "culture_title": "The Colosseum's Evolving Identity",
+            "culture_subtitle": "A journey through its transformation from an arena of spectacle to a modern icon.",
+            "culture_cards": [
+                {
+                    "title": "Origin of the Name",
+                    "content": "The name 'Colosseum' is believed to derive from a colossal statue of Nero, later moved nearby, rather than the amphitheatre's size. Originally, it was known as the Flavian Amphitheatre."
+                },
+                {
+                    "title": "Medieval Adaptations",
+                    "content": "In the medieval era, the Colosseum ceased being an entertainment venue. It was repurposed for housing, workshops, a fortress, a quarry, and even a cemetery within its arena."
+                },
+                {
+                    "title": "Sacred Site Designation",
+                    "content": "In 1749, Pope Benedict XIV declared the Colosseum a sacred site where early Christians were martyred, forbidding its use as a quarry and installing Stations of the Cross, despite a lack of historical evidence."
+                },
+                {
+                    "title": "Modern Human Rights Symbol",
+                    "content": "Today, the Colosseum serves as a symbol of the international campaign against capital punishment. Its night illumination changes from white to gold when a death sentence is commuted or abolished."
+                }
+            ],
+            "quick_facts": [
+                "Location: Regio III Isis et Serapis, Rome, Italy",
+                "Type: Amphitheatre",
+                "Builder: Vespasian, Titus",
+                "Founded: AD 70–80",
+                "Largest ancient amphitheatre ever built.",
+                "Estimated capacity: 50,000 to 80,000 spectators.",
+                "Constructed from travertine limestone, tuff, and brick-faced Roman concrete.",
+                "Listed as one of the New 7 Wonders of the World.",
+                "Depicted on the Italian version of the 5 euro cent coin."
+            ],
+            "did_you_know_text": "Did you know the Colosseum's name comes from a colossal statue of Nero nearby, not its size, and it was once used for housing, workshops, and even as a quarry before becoming a Christian shrine?",
+            "theme": {
+                "bg": "#282828",
+                "bg_darker": "#1C1C1C",
+                "accent_red": "#D32F2F",
+                "accent_gold": "#FFC107",
+                "text_cream": "#E0E0E0",
+                "card_bg": "#3A3A3A",
+                "border_color": "#555555"
+            }
+        }
+    }
+}
