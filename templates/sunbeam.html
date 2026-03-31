@@ -327,6 +327,9 @@
             .footer-text-main { text-align: center; }
         }
     </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Cesium.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 </head>
 <body>
 
@@ -424,7 +427,7 @@
         <div class="did-you-know">
             <h4>Did You Know?</h4>
             <p style="margin-bottom: 25px;">Performers apply lian pu (臉譜 face paint) backstage in rituals unchanged for generations. Each pattern and color tells the audience who the character is before a single word is spoken.</p>
-            <a href="archive.html" class="btn btn-outline">→ Explore More Heritage</a>
+            <a href="/archive" class="btn btn-outline">→ Explore More Heritage</a>
         </div>
     </div>
 </section>
@@ -439,6 +442,65 @@
         </div>
     </div>
 </footer>
+
+<script>
+    (function initCesiumViewer() {
+      // Sunbeam Theatre
+      const LAT  = 22.2912;
+      const LNG  = 114.2006;
+      const GOOGLE_API_KEY = "{{ google_maps_api_key }}";
+
+      if (!GOOGLE_API_KEY) {
+          document.getElementById('cesium-loading-overlay').textContent = 'API Key is missing.';
+          return;
+      }
+
+      Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.placeholder';
+
+      const viewer = new Cesium.Viewer('cesiumContainer', {
+        imageryProvider: false, baseLayerPicker: false, requestRenderMode: true,
+        animation: false, timeline: false, fullscreenButton: false,
+        homeButton: false, sceneModePicker: false, navigationHelpButton: false,
+        geocoder: false, infoBox: false, selectionIndicator: false,
+        creditContainer: document.createElement('div'),
+      });
+
+      viewer.scene.globe.show = false;
+
+      const tileset = viewer.scene.primitives.add(
+        new Cesium.Cesium3DTileset({
+          url: `https://tile.googleapis.com/v1/3dtiles/root.json?key=${GOOGLE_API_KEY}`,
+          showCreditsOnScreen: true,
+        })
+      );
+
+      tileset.readyPromise.then(() => {
+          const ALTITUDE_METERS = 300;
+          const HEADING_DEG     = 30;
+          const PITCH_DEG       = -25;
+
+          viewer.camera.setView({
+            destination: Cesium.Cartesian3.fromDegrees(LNG, LAT, ALTITUDE_METERS),
+            orientation: { heading: Cesium.Math.toRadians(HEADING_DEG), pitch: Cesium.Math.toRadians(PITCH_DEG), roll: 0.0 }
+          });
+          
+          let heading = HEADING_DEG;
+          viewer.scene.preRender.addEventListener(() => {
+            heading += 0.05;
+            viewer.camera.setView({
+              destination: Cesium.Cartesian3.fromDegrees(LNG, LAT, ALTITUDE_METERS),
+              orientation: { heading: Cesium.Math.toRadians(heading), pitch: Cesium.Math.toRadians(PITCH_DEG), roll: 0.0 }
+            });
+          });
+
+          const overlay = document.getElementById('cesium-loading-overlay');
+          if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.remove(), 600); }
+        }).catch(err => {
+          console.error('3D Tiles error:', err);
+          document.getElementById('cesium-loading-overlay').textContent = '3D view unavailable. Check API key.';
+        });
+    })();
+</script>
 
 </body>
 </html>
