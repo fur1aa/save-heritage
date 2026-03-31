@@ -82,13 +82,13 @@ def save_db(data):
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     """Renders the main generator page."""
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="index.html", context={"request": request})
 
 @app.get("/archive", response_class=HTMLResponse)
 async def archive(request: Request):
     """Renders the archive page with all saved sites."""
     db = load_db()
-    return templates.TemplateResponse("archive.html", {"request": request, "sites": db.values()})
+    return templates.TemplateResponse(request=request, name="archive.html", context={"request": request, "sites": db.values()})
 
 @app.get("/site/{site_id}", response_class=HTMLResponse)
 async def view_site(request: Request, site_id: str):
@@ -100,9 +100,9 @@ async def view_site(request: Request, site_id: str):
     site_info = db[site_id]
 
     if site_info.get("is_custom"):
-        return templates.TemplateResponse(f"{site_id}.html", {"request": request})
+        return templates.TemplateResponse(request=request, name=f"{site_id}.html", context={"request": request})
 
-    return templates.TemplateResponse("heritage_template.html", {
+    return templates.TemplateResponse(request=request, name="heritage_template.html", context={
         "request": request, 
         "data": site_info["full_data"],
         "google_maps_api_key": os.getenv("GOOGLE_MAPS_API_KEY", "")
