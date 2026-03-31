@@ -79,20 +79,17 @@ def save_db(data):
 
 # --- NAVIGATION ENDPOINTS ---
 
-# 1. ДОБАВЛЕНА ГЛАВНАЯ СТРАНИЦА (Именно из-за ее отсутствия была ошибка "Not Found")
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     """Renders the main generator page."""
     return templates.TemplateResponse("index.html", {"request": request})
 
-# 2. АРХИВ
 @app.get("/archive", response_class=HTMLResponse)
 async def archive(request: Request):
     """Renders the archive page with all saved sites."""
     db = load_db()
     return templates.TemplateResponse("archive.html", {"request": request, "sites": db.values()})
 
-# 3. ЕДИНСТВЕННЫЙ ПРАВИЛЬНЫЙ РОУТ ДЛЯ САЙТОВ (С ключом Google Maps)
 @app.get("/site/{site_id}", response_class=HTMLResponse)
 async def view_site(request: Request, site_id: str):
     """Renders a specific heritage site page based on its ID."""
