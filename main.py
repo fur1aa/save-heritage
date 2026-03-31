@@ -64,7 +64,6 @@ DEFAULT_DB = {
 }
 
 def load_db():
-    """Loads the archive from the file. Creates a new one with Sunbeam if it doesn't exist."""
     if not os.path.exists(DB_FILE):
         with open(DB_FILE, "w", encoding="utf-8") as f:
             json.dump(DEFAULT_DB, f, ensure_ascii=False, indent=4)
@@ -73,7 +72,6 @@ def load_db():
         return json.load(f)
 
 def save_db(data):
-    """Saves the updated database to the JSON file."""
     with open(DB_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
@@ -81,18 +79,15 @@ def save_db(data):
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    """Renders the main generator page."""
     return templates.TemplateResponse(request=request, name="index.html", context={"request": request})
 
 @app.get("/archive", response_class=HTMLResponse)
 async def archive(request: Request):
-    """Renders the archive page with all saved sites."""
     db = load_db()
     return templates.TemplateResponse(request=request, name="archive.html", context={"request": request, "sites": db.values()})
 
 @app.get("/site/{site_id}", response_class=HTMLResponse)
 async def view_site(request: Request, site_id: str):
-    """Renders a specific heritage site page based on its ID."""
     db = load_db()
     if site_id not in db:
         raise HTTPException(status_code=404, detail="Site not found in the archive.")
@@ -100,7 +95,10 @@ async def view_site(request: Request, site_id: str):
     site_info = db[site_id]
 
     if site_info.get("is_custom"):
-        return templates.TemplateResponse(request=request, name=f"{site_id}.html", context={"request": request})
+        return templates.TemplateResponse(request=request, name=f"{site_id}.html", context={
+            "request": request,
+            "google_maps_api_key": os.getenv("GOOGLE_MAPS_API_KEY", "")
+        })
 
     return templates.TemplateResponse(request=request, name="heritage_template.html", context={
         "request": request, 
@@ -112,14 +110,12 @@ async def view_site(request: Request, site_id: str):
 
 @app.post("/generate")
 async def generate_site(request: Request, url: str = Form(...)):
-    """Fetches text from the URL, generates content via Gemini, and saves it to the database."""
     downloaded = trafilatura.fetch_url(url)
     text = trafilatura.extract(downloaded)
 
     if not text:
         raise HTTPException(status_code=400, detail="Failed to extract text from the provided URL.")
 
-    # STRICT PROMPT TO ENSURE ENGLISH OUTPUT, COLOR GENERATION AND COORDINATES
     prompt = (
         f"You are the lead editor and web designer for the S.A.V.E. Heritage project.\n"
         f"CRITICAL RULE: TRANSLATE EVERYTHING TO ENGLISH. The final output MUST be 100% in English, even if the source text is in Russian, Chinese, or any other language.\n"
@@ -142,9 +138,7 @@ async def generate_site(request: Request, url: str = Form(...)):
 
         site_data = HeritageSiteData.model_validate_json(response.text).model_dump()
 
-        # SAVE TO THE PERSISTENT DATABASE
         db = load_db()
-        # Create a safe URL-friendly ID
         site_id = site_data["title"].lower().replace(" ", "_").replace("'", "")
         db[site_id] = {
             "id": site_id,
@@ -156,7 +150,6 @@ async def generate_site(request: Request, url: str = Form(...)):
         }
         save_db(db)
 
-        # Redirect the user to their newly created page
         return RedirectResponse(url=f"/site/{site_id}", status_code=303)
 
     except Exception as e:
