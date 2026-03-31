@@ -6,9 +6,6 @@
     <title>{{ data.title }} | SAVE Heritage</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Cesium.js"></script>
-    <link href="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
-    
     <style>
         :root {
             --bg: {{ data.theme.bg }};
@@ -75,6 +72,8 @@
         
         @media (max-width: 1024px) { .bottom-split { flex-direction: column; } .grid-container { grid-template-columns: 1fr; } .footer-content { flex-direction: column; gap: 20px; text-align: center; } }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Cesium.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 </head>
 <body>
 
@@ -220,7 +219,7 @@
           if (overlay) { overlay.style.opacity = '0'; setTimeout(() => overlay.remove(), 600); }
         }).catch(err => {
           console.error('3D Tiles error:', err);
-          document.getElementById('cesium-loading-overlay').textContent = '⚠ 3D view unavailable. Check API key.';
+          document.getElementById('cesium-loading-overlay').textContent = '3D view unavailable. Check API key.';
         });
     })();
 </script>
