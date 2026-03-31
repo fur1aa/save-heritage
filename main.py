@@ -111,12 +111,14 @@ async def view_site(request: Request, site_id: str):
 
     site_info = db[site_id]
 
-    # If it's our manually crafted Sunbeam page
     if site_info.get("is_custom"):
         return templates.TemplateResponse(f"{site_id}.html", {"request": request})
 
-    # If it's an AI-generated page
-    return templates.TemplateResponse("heritage_template.html", {"request": request, "data": site_info["full_data"]})
+    return templates.TemplateResponse("heritage_template.html", {
+        "request": request, 
+        "data": site_info["full_data"],
+        "google_maps_api_key": os.getenv("GOOGLE_MAPS_API_KEY", "")
+    })
 
 # --- GENERATION ENDPOINT ---
 
